@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option go_package = "example.com/pb";
+
+// Service that shows a few ways to work with protobufs and gRPC
+service Example {
+  rpc Echo(Echoable) returns (Echoable);
+  rpc GetRecord(GetRecordRequest) returns (GetRecordResponse);
+}
+
+message Echoable {
+  string msg = 1;
+}
+
+message GetRecordRequest {
+  string name = 1;
+}
+
+message GetRecordResponse {
+  int64 id = 1;
+  string name = 2;
+  string birthday = 3;
+  repeated string details = 4;
+}
