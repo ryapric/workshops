@@ -1,4 +1,4 @@
-module example.com
+module github.com/ryapric/workshops/protobuf-grpc
 
 go 1.19
 

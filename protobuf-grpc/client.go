@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 
-	"example.com/pb"
+	pb "github.com/ryapric/workshops/protobuf-grpc/pb/example/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -22,9 +22,9 @@ func runClient(uri string) {
 	}
 	defer conn.Close()
 
-	client := pb.NewExampleClient(conn)
+	client := pb.NewExampleServiceClient(conn)
 
-	echoResponse, err := client.Echo(context.TODO(), &pb.Echoable{Msg: "hello grpc"})
+	echoResponse, err := client.Echo(context.TODO(), &pb.EchoRequest{Msg: "hello grpc"})
 	if err != nil {
 		log.Fatalf("error calling rpc Echo(): %v\n", err)
 	}

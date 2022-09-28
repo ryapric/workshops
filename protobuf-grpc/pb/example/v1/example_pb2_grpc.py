@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from pb import example_pb2 as pb_dot_example__pb2
+from example.v1 import example_pb2 as example_dot_v1_dot_example__pb2
 
 
-class ExampleStub(object):
+class ExampleServiceStub(object):
     """Service that shows a few ways to work with protobufs and gRPC
     """
 
@@ -16,18 +16,18 @@ class ExampleStub(object):
             channel: A grpc.Channel.
         """
         self.Echo = channel.unary_unary(
-                '/Example/Echo',
-                request_serializer=pb_dot_example__pb2.Echoable.SerializeToString,
-                response_deserializer=pb_dot_example__pb2.Echoable.FromString,
+                '/proto.example.v1.ExampleService/Echo',
+                request_serializer=example_dot_v1_dot_example__pb2.EchoRequest.SerializeToString,
+                response_deserializer=example_dot_v1_dot_example__pb2.EchoResponse.FromString,
                 )
         self.GetRecord = channel.unary_unary(
-                '/Example/GetRecord',
-                request_serializer=pb_dot_example__pb2.GetRecordRequest.SerializeToString,
-                response_deserializer=pb_dot_example__pb2.GetRecordResponse.FromString,
+                '/proto.example.v1.ExampleService/GetRecord',
+                request_serializer=example_dot_v1_dot_example__pb2.GetRecordRequest.SerializeToString,
+                response_deserializer=example_dot_v1_dot_example__pb2.GetRecordResponse.FromString,
                 )
 
 
-class ExampleServicer(object):
+class ExampleServiceServicer(object):
     """Service that shows a few ways to work with protobufs and gRPC
     """
 
@@ -44,26 +44,26 @@ class ExampleServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ExampleServicer_to_server(servicer, server):
+def add_ExampleServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Echo': grpc.unary_unary_rpc_method_handler(
                     servicer.Echo,
-                    request_deserializer=pb_dot_example__pb2.Echoable.FromString,
-                    response_serializer=pb_dot_example__pb2.Echoable.SerializeToString,
+                    request_deserializer=example_dot_v1_dot_example__pb2.EchoRequest.FromString,
+                    response_serializer=example_dot_v1_dot_example__pb2.EchoResponse.SerializeToString,
             ),
             'GetRecord': grpc.unary_unary_rpc_method_handler(
                     servicer.GetRecord,
-                    request_deserializer=pb_dot_example__pb2.GetRecordRequest.FromString,
-                    response_serializer=pb_dot_example__pb2.GetRecordResponse.SerializeToString,
+                    request_deserializer=example_dot_v1_dot_example__pb2.GetRecordRequest.FromString,
+                    response_serializer=example_dot_v1_dot_example__pb2.GetRecordResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'Example', rpc_method_handlers)
+            'proto.example.v1.ExampleService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Example(object):
+class ExampleService(object):
     """Service that shows a few ways to work with protobufs and gRPC
     """
 
@@ -78,9 +78,9 @@ class Example(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Example/Echo',
-            pb_dot_example__pb2.Echoable.SerializeToString,
-            pb_dot_example__pb2.Echoable.FromString,
+        return grpc.experimental.unary_unary(request, target, '/proto.example.v1.ExampleService/Echo',
+            example_dot_v1_dot_example__pb2.EchoRequest.SerializeToString,
+            example_dot_v1_dot_example__pb2.EchoResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -95,8 +95,8 @@ class Example(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Example/GetRecord',
-            pb_dot_example__pb2.GetRecordRequest.SerializeToString,
-            pb_dot_example__pb2.GetRecordResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/proto.example.v1.ExampleService/GetRecord',
+            example_dot_v1_dot_example__pb2.GetRecordRequest.SerializeToString,
+            example_dot_v1_dot_example__pb2.GetRecordResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

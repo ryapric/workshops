@@ -1,6 +1,9 @@
+"""
+Example Python gRPC client that calls the Go gRPC server
+"""
 import grpc
-import pb.example_pb2
-import pb.example_pb2_grpc
+import pb.example.v1.example_pb2
+import pb.example.v1.example_pb2_grpc
 
 if __name__ == "__main__":
     with grpc.insecure_channel("127.0.0.1:8080") as channel:
