@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from example.v1 import example_pb2 as example_dot_v1_dot_example__pb2
+from . import example_pb2 as example_dot_v1_dot_example__pb2
 
 
 class ExampleServiceStub(object):

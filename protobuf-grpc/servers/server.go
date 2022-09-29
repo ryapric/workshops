@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-const addr = "localhost:8080"
+const addr = "127.0.0.1:8080"
 
 type exampleServiceServer struct {
 	// You can make this embedded struct required via a `protoc` Go option,
@@ -34,13 +34,13 @@ func (s *exampleServiceServer) GetRecord(ctx context.Context, req *pb.GetRecordR
 	log.Printf("Received the following request on 'GetRecord' --> %v", req)
 	return &pb.GetRecordResponse{
 		Id:       1,
-		Name:     "o no u di'int",
+		Name:     req.Name,
 		Birthday: "1991-01-01",
-		Details:  []string{"a", "b", "c"},
+		Details:  []string{"some", "other", "stuff", "about", req.Name},
 	}, nil
 }
 
-func runServer() {
+func runServer(addr string) {
 	listen, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatalf("Failed to listen on %s\n", addr)
@@ -55,4 +55,8 @@ func runServer() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+}
+
+func main() {
+	runServer(addr)
 }

@@ -41,3 +41,7 @@ func runClient(uri string) {
 	fmt.Println("Got the following JSON record back for the name query:")
 	fmt.Println(string(dump))
 }
+
+func main() {
+	runClient("127.0.0.1:8080")
+}
