@@ -24,12 +24,16 @@ type exampleServiceServer struct {
 	// pb.UnimplementedExampleServer
 }
 
+// The Echo method here implements the Echo part of the ExampleServiceServer
+// interface, as defined in the proto file
 func (s *exampleServiceServer) Echo(ctx context.Context, req *pb.EchoRequest) (*pb.EchoResponse, error) {
 	msg := fmt.Sprintf("rpc call to 'Echo', received msg: '%s'", req.Msg)
 	log.Printf(msg + " -- responding in kind\n")
 	return &pb.EchoResponse{Msg: req.Msg}, nil
 }
 
+// The GetRecord method here implements the GetRecord part of the
+// ExampleServiceServer interface, as defined as the proto file
 func (s *exampleServiceServer) GetRecord(ctx context.Context, req *pb.GetRecordRequest) (*pb.GetRecordResponse, error) {
 	log.Printf("Received the following request on 'GetRecord' --> %v", req)
 	return &pb.GetRecordResponse{
@@ -40,6 +44,7 @@ func (s *exampleServiceServer) GetRecord(ctx context.Context, req *pb.GetRecordR
 	}, nil
 }
 
+// This function contains the actual logic to run our gRPC server
 func runServer(addr string) {
 	listen, err := net.Listen("tcp", addr)
 	if err != nil {
