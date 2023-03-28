@@ -8,9 +8,16 @@ package proto.example.v1;
 // directory structure that your protoc invocation creates!
 option go_package = "github.com/ryapric/workshops/protobuf-grpc/pb/example/v1";
 
+// Allow for service annotations, if needed. Check commented-out lines on each relevant service below
+// import "google/api/annotations.proto";
+
 // Service that shows a few ways to work with protobufs and gRPC
 service ExampleService {
-  rpc Echo(EchoRequest) returns (EchoResponse);
+  rpc Echo(EchoRequest) returns (EchoResponse) {
+    // option (google.api.http) = {
+    //   get: "/api"
+    // };
+  };
   rpc GetRecord(GetRecordRequest) returns (GetRecordResponse);
 }
 
